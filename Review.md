@@ -15,3 +15,18 @@
 ## How can we partition our application into sub-applications?
 
 ## What is express.json() and why do we need it?
+
+
+1. Node.js is a JS library for the backend primarily. 
+
+2. Express is used to bridge the API requests to the backend.
+
+3. Middleware/Routing
+
+4. Any data used in a database
+
+5. HTTP status codes, i.e 201, 200
+
+6. Through routing 
+
+7. Middleware for parsing requests and responding with JSON objects
