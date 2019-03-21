@@ -1,3 +1,4 @@
+require("dotenv").config()
 const express = require("express");
 const actionDb = require("../data/helpers/actionModel.js");
 const projectDb = require("../data/helpers/projectModel.js");
@@ -71,8 +72,11 @@ server.get("/api/projects/:id/all", (req, res) => {
 
 server.post("/api/projects", (req, res) => {
   try {
-    const projectData = req.body;
-    projectDb.insert(projectData);
+    const { project_id, name, description, completed} = req.body;
+    if(name.length > 128) {
+        console.log("Name too long");
+    }
+    projectDb.insert({project_id, name, description, completed});
     res.status(201).json({ message: "success" });
   } catch (error) {
     res.status(500).json({ message: error });
@@ -81,8 +85,8 @@ server.post("/api/projects", (req, res) => {
 
 server.post("/api/actions", (req, res) => {
   try {
-    const actionData = req.body;
-    actionDb.insert(actionData);
+    const projectData = req.body;
+    actionDb.insert(projectData);
     res.status(201).json({ message: "success" });
   } catch (error) {
     res.status(500).json({ message: "error adding action" });
@@ -91,6 +95,7 @@ server.post("/api/actions", (req, res) => {
 
 server.put("/api/projects/:id", (req, res) => {
   const projectData = req.body;
+  const name = req.body.name;
   projectDb
     .update(req.params.id, projectData)
     .then(count => {
