@@ -9,6 +9,10 @@ const server = express();
 server.use(cors());
 server.use(express.json());
 
+server.get("/", (req, res) => {
+  res.send("Hey!");
+})
+
 server.get("/api/projects", (req, res) => {
   projectDb
     .get()
